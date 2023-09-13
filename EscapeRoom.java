@@ -86,9 +86,23 @@ class Main {
 
       }
 
+      else if (input.equals("jump") || input.equals("jr")) {
+
+        px = 2 * m;
+        py = 0;
+
+      }
+
       else if (input.equals("left") || input.equals("l")) {
 
         px = -m;
+        py = 0;
+
+      }
+
+      else if (input.equals("jumpleft") || input.equals("jl")) {
+
+        px = -2 * m;
         py = 0;
 
       }
@@ -100,6 +114,13 @@ class Main {
 
       }
 
+      else if (input.equals("jumpup") || input.equals("ju")) {
+
+        px = 0;
+        py = -2 * m;
+
+      }
+
       else if (input.equals("down") || input.equals("d")) {
         System.out.println("down");
         px = 0;
@@ -107,9 +128,18 @@ class Main {
 
       }
 
-      // if (input.equals("pickup") || input.equals("P")) {
-      // score += game.pickupPrize();
-      // }
+      else if (input.equals("jumpdown") || input.equals("jd")) {
+
+        px = 0;
+        py = 2 * m;
+
+      }
+
+      if (input.equals("pickup") || input.equals("p")) {
+        px = 0;
+        py = 0;
+        score += game.pickupPrize();
+      }
 
       score += game.movePlayer(px, py);
 
