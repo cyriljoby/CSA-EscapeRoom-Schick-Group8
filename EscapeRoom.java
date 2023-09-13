@@ -6,6 +6,9 @@
 * 10/10/2019
 * Copyright(c) 2019 PLTW to present. All rights reserved
 */
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Scanner;
 
 /**
@@ -76,6 +79,14 @@ class Main {
       /* TODO: get all the commands working */
       /* Your code here */
       System.out.println("Enter a command: ");
+
+      game.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+          int key = e.getKeyCode();
+        }
+        //
+      });
 
       String input = UserInput.getValidInput(validCommands);
 
