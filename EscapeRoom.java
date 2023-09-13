@@ -100,12 +100,16 @@ class Main {
 
       }
 
-      else if (input.equals("down") || input.equals("down")) {
-
+      else if (input.equals("down") || input.equals("d")) {
+        System.out.println("down");
         px = 0;
         py = m;
 
       }
+
+      // if (input.equals("pickup") || input.equals("P")) {
+      // score += game.pickupPrize();
+      // }
 
       score += game.movePlayer(px, py);
 
