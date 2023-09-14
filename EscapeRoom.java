@@ -78,7 +78,21 @@ class Main {
       System.out.println("Enter a command: ");
 
       String input = UserInput.getValidInput(validCommands);
+      if (input.equals("quit")|| input.equals("q")){
+          game.endGame();
+          play = false;
+      }
+      else if (input.equals("replay")){
+          game.replay();
+          play = true;
+      }
 
+      else if (input.equals("help")||  input.equals("?"))
+      {
+        System.out.println("Valid commands: To move in various Directions: right, left, up, down, r, l, u, d");
+        System.out.println("To jump: jump jr, jumpleft, jl, jumpup, ju, jumpdown, jd");
+        System.out.println("pickup, p, quit, q, replay, help, ?");
+      }
       if (input.equals("right") || input.equals("r")) {
 
         px = m;
