@@ -6,6 +6,7 @@
 * 10/10/2019
 * Copyright(c) 2019 PLTW to present. All rights reserved
 */
+import java.awt.event.KeyEvent;
 import java.util.Scanner;
 
 /**
@@ -77,129 +78,139 @@ class Main {
       /* TODO: get all the commands working */
       /* Your code here */
       System.out.println("Enter a command: ");
-
-      String input = UserInput.getValidInput(validCommands);
       px=0;
       py=0;
-      if (input.equals("quit")|| input.equals("q")){
-          game.endGame();
-          play = false;
-      }
-      else if (input.equals("replay")){
-          game.replay();
-          play = true;
-      }
+      game.addKeyListener(new KeyAdapter() {
 
-      else if (input.equals("help")||  input.equals("?"))
-      {
-        System.out.println("Valid commands: To move in various Directions: right, left, up, down, r, l, u, d");
-        System.out.println("To jump: jump jr, jumpleft, jl, jumpup, ju, jumpdown, jd");
-        System.out.println("pickup, p, quit, q, replay, help, ?");
-      }
-      if (input.equals("right") || input.equals("r")) {
+        public void keyTyped(KeyEvent e) {
+          int key = e.getKeyCode();
+          if (key == KeyEvent.VK_Q){
+            game.endGame();
+            play = false;
+          }
+          else if (key.equals("replay")){
+            game.replay();
+            play = true;
+          }
 
-        px = m;
-        py = 0;
+          else if (key == KeyEvent.VK_H)
+          {
+            System.out.println("Valid commands: To move in various Directions: right, left, up, down, r, l, u, d");
+            System.out.println("To jump: jump jr, jumpleft, jl, jumpup, ju, jumpdown, jd");
+            System.out.println("pickup, p, quit, q, replay, help, ?");
+          }
+          if (key == KeyEvent.VK_RIGHT) {
+            System.out.println("right");
+            px = m;
+            py = 0;
 
-      }
+          }
 
-      else if (input.equals("jump") || input.equals("jr")) {
+          else if (key == KeyEvent.VK_SPACE) {
 
-        px = 2 * m;
-        py = 0;
+            px = 2 * m;
+            py = 0;
 
-      }
+          }
 
-      else if (input.equals("left") || input.equals("l")) {
+          else if (key == KeyEvent.VK_LEFT
 
-        px = -m;
-        py = 0;
+            px = -m;
+            py = 0;
 
-      }
+          }
 
-      else if (input.equals("jumpleft") || input.equals("jl")) {
+          else if (key == KeyEvent.VK_J) {
 
-        px = -2 * m;
-        py = 0;
+            px = -2 * m;
+            py = 0;
 
-      }
+          }
 
-      else if (input.equals("up") || input.equals("u")) {
+          else if (key == KeyEvent.VK_UP) {
 
-        px = 0;
-        py = -m;
+            px = 0;
+            py = -m;
 
-      }
+          }
 
-      else if (input.equals("jumpup") || input.equals("ju")) {
+          else if (key == KeyEvent.I) {
 
-        px = 0;
-        py = -2 * m;
+            px = 0;
+            py = -2 * m;
 
-      }
+          }
 
-      else if (input.equals("down") || input.equals("d")) {
-        System.out.println("down");
-        px = 0;
-        py = m;
+          else if (key == KeyEvent.VK_DOWN) {
+            System.out.println("down");
+            px = 0;
+            py = m;
 
-      }
+          }
 
-      else if (input.equals("jumpdown") || input.equals("jd")) {
+          else if (key == KeyEvent.VK_K) {
 
-        px = 0;
-        py = 2 * m;
+            px = 0;
+            py = 2 * m;
 
-      }
+          }
 
-      if (input.equals("pickup") || input.equals("p")) {
-        px = 0;
-        py = 0;
-        score += game.pickupPrize();
-      }
+          if (key == KeyEvent.VK_P) {
+            px = 0;
+            py = 0;
+            score += game.pickupPrize();
+          }
 
-      score += game.movePlayer(px, py);
+          score += game.movePlayer(px, py);
 
-      if (input.equals("find") || input.equals("f")) {
-        if(game.isTrap(0,-m))
-        {
-          System.out.println("There is a trap above you");
+          if (key == KeyEvent.VK_F) {
+            if(game.isTrap(0,-m))
+            {
+              System.out.println("There is a trap above you");
+
+            }
+            if(game.isTrap(0,m))
+            {
+              System.out.println("There is a trap below you");
+
+            }
+            if(game.isTrap(m,0))
+            {
+              System.out.println("There is a trap to the right");
+
+            }
+            if(game.isTrap(-m,0))
+            {
+              System.out.println("There is a trap to the left");
+
+            }
+
+
+          }
+          else if (key == KeyEvent.VK_R){
+            System.out.println("What direction would you like to remove the trap");
+            String springInput = UserInput.getValidInput(trapValidCommands);
+            if (springInput.equals("r") ||springInput.equals("right") ){
+              score+=game.springTrap(m, 0);
+            }
+            else if (springInput.equals("l") ||springInput.equals("left") ){
+              score+=game.springTrap(-m, 0);
+            }
+            else if (springInput.equals("u") ||springInput.equals("up") ){
+              score+=game.springTrap(0, -m);
+            }
+            else if (springInput.equals("d") ||springInput.equals("down") ){
+              score+=game.springTrap(0, m);
+            }
+          }
 
         }
-        if(game.isTrap(0,m))
-        {
-          System.out.println("There is a trap below you");
+        //
+      });
 
-        }
-        if(game.isTrap(m,0))
-        {
-          System.out.println("There is a trap to the right");
-
-        }
-        if(game.isTrap(-m,0))
-        {
-          System.out.println("There is a trap to the left");
-
-        }
+      String input = UserInput.getValidInput(validCommands);
 
 
-        }
-      else if (input.equals("rm") || input.equals("remove")){
-        System.out.println("What direction would you like to remove the trap");
-        String springInput = UserInput.getValidInput(trapValidCommands);
-        if (springInput.equals("r") ||springInput.equals("right") ){
-          score+=game.springTrap(m, 0);
-        }
-        else if (springInput.equals("l") ||springInput.equals("left") ){
-          score+=game.springTrap(-m, 0);
-        }
-        else if (springInput.equals("u") ||springInput.equals("up") ){
-          score+=game.springTrap(0, -m);
-        }
-        else if (springInput.equals("d") ||springInput.equals("down") ){
-          score+=game.springTrap(0, m);
-        }
-      }
       else if(game.isTrap(0, 0)){
         System.out.println("Hit by Trap");
         score-=5;
