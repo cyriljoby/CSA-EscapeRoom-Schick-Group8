@@ -101,7 +101,7 @@ public class GameGUI extends JComponent
     // set default config
     totalWalls = 20;
     totalPrizes = 3;
-    totalTraps = 5;
+    totalTraps = 40;
   }
 
  /**
@@ -202,6 +202,7 @@ public class GameGUI extends JComponent
    */
   public boolean isTrap(int newx, int newy)
   {
+
     double px = playerLoc.getX() + newx;
     double py = playerLoc.getY() + newy;
 
@@ -215,7 +216,7 @@ public class GameGUI extends JComponent
         // if new location of player has a trap, return true
         if (r.contains(px, py))
         {
-          System.out.println("A TRAP IS AHEAD");
+          // System.out.println("A TRAP IS AHEAD");
           return true;
         }
       }
@@ -249,13 +250,13 @@ public class GameGUI extends JComponent
         if (r.getWidth() > 0)
         {
           r.setSize(0,0);
-          System.out.println("TRAP IS SPRUNG!");
+          System.out.println("TRAP IS REMOVED!");
           return trapVal;
         }
       }
     }
     // no trap here, penalty
-    System.out.println("THERE IS NO TRAP HERE TO SPRING");
+    System.out.println("THERE IS NO TRAP HERE TO REMOVE");
     return -trapVal;
   }
 

@@ -67,7 +67,8 @@ class Main {
     Scanner in = new Scanner(System.in);
     String[] validCommands = { "right", "left", "up", "down", "r", "l", "u", "d",
         "jump", "jr", "jumpleft", "jl", "jumpup", "ju", "jumpdown", "jd",
-        "pickup", "p", "quit", "q", "replay", "help", "?" };
+        "pickup", "p", "quit", "q", "replay", "help", "?", "find", "f", "rm", "remove"};
+    String[] trapValidCommands = { "right", "left", "up", "down", "r", "l", "u", "d"};
 
     // set up game
     boolean play = true;
@@ -78,6 +79,8 @@ class Main {
       System.out.println("Enter a command: ");
 
       String input = UserInput.getValidInput(validCommands);
+      px=0;
+      py=0;
       if (input.equals("quit")|| input.equals("q")){
           game.endGame();
           play = false;
@@ -157,8 +160,55 @@ class Main {
 
       score += game.movePlayer(px, py);
 
-    }
+      if (input.equals("find") || input.equals("f")) {
+        if(game.isTrap(0,-m))
+        {
+          System.out.println("There is a trap above you");
 
+        }
+        if(game.isTrap(0,m))
+        {
+          System.out.println("There is a trap below you");
+
+        }
+        if(game.isTrap(m,0))
+        {
+          System.out.println("There is a trap to the right");
+
+        }
+        if(game.isTrap(-m,0))
+        {
+          System.out.println("There is a trap to the left");
+
+        }
+
+
+        }
+      else if (input.equals("rm") || input.equals("remove")){
+        System.out.println("What direction would you like to remove the trap");
+        String springInput = UserInput.getValidInput(trapValidCommands);
+        if (springInput.equals("r") ||springInput.equals("right") ){
+          score+=game.springTrap(m, 0);
+        }
+        else if (springInput.equals("l") ||springInput.equals("left") ){
+          score+=game.springTrap(-m, 0);
+        }
+        else if (springInput.equals("u") ||springInput.equals("up") ){
+          score+=game.springTrap(0, -m);
+        }
+        else if (springInput.equals("d") ||springInput.equals("down") ){
+          score+=game.springTrap(0, m);
+        }
+      }
+      else if(game.isTrap(0, 0)){
+        System.out.println("Hit by Trap");
+        score-=5;
+      }
+
+      System.out.println("Score: "+ score);
+
+}
+      
     // end game
     score += game.endGame();
 
